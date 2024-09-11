@@ -24,7 +24,7 @@ public class ShopService {
                 System.out.println("Old quantity: " + chosenProduct.quantity());
                 return getCustomerDetails(ProductRepo.deductProductQuantity(chosenProduct, quantity), quantity);
             } else {
-                System.out.println(ANSI_RED + "Sorry, the product " + chosenProduct.name() + " is out of stock" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Sorry, for the product " + chosenProduct.name() + " we do not have the desired quantity" + ANSI_RESET);
             }
         } else {
             System.out.println(ANSI_RED + "Sorry, the product with ID " + productId + " is not available." + ANSI_RESET);
