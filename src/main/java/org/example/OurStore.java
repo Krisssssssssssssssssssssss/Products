@@ -1,4 +1,7 @@
 package org.example;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -9,9 +12,12 @@ public class OurStore {
         ProductRepo productRepo = new ProductRepo();
         OrderListRepo orderListRepo = new OrderListRepo();
         Client client1 = new Client("John", "Doe", 1);
-        System.out.println(client1);
-        System.out.println();
+        Client client2 = new Client("Jack", "Smith", 2);
+        Client client3 = new Client("Kris", "Kris", 3);
+        List<Client> clientList = new ArrayList<>(Arrays.asList(client1, client2, client3));
+        BankService.openAccount(clientList);
 
+        System.out.println();
         CSVReader.insertCVS();
 
         System.out.println("Welcome to Our Store! Here's what we have available:");
