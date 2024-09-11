@@ -1,8 +1,13 @@
 package org.example;
+
 import java.util.Scanner;
 
 public class ShopService {
-    public static Order placeNewOrder (ProductRepo productRepo) {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
+
+    public static Order placeNewOrder(ProductRepo productRepo) {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.println("Enter the ID of the product that you would like to purchase:");
@@ -12,22 +17,22 @@ public class ShopService {
 
         if (chosenProduct != null) {
             System.out.println("You selected: " + chosenProduct.name() + ", | Description: " + chosenProduct.description() + " | Price: $" + chosenProduct.price());
-
             System.out.println("Please enter the quantity you want to order:");
             int quantity = scanner.nextInt();
             scanner.nextLine();
             if (quantity <= chosenProduct.quantity()) {
-                return getCustomerDetails(chosenProduct, quantity);
-            }
-            else {
-                System.out.println("Sorry, the product " + chosenProduct.name() + " is out of stock");
+                System.out.println("Old quantity: " + chosenProduct.quantity());
+                return getCustomerDetails(ProductRepo.deductProductQuantity(chosenProduct, quantity), quantity);
+            } else {
+                System.out.println(ANSI_RED + "Sorry, the product " + chosenProduct.name() + " is out of stock" + ANSI_RESET);
             }
         } else {
-            System.out.println("Sorry, the product with ID " + productId + " is not available.");
+            System.out.println(ANSI_RED + "Sorry, the product with ID " + productId + " is not available." + ANSI_RESET);
         }
         scanner.close();
         return null;
     }
+
     private static Order getCustomerDetails(Product product, int quantity) {
         Scanner scanner = new Scanner(System.in);
 
@@ -48,7 +53,10 @@ public class ShopService {
         Order order = new Order(firstName, lastName, address, product, orderId, bankDetails, quantity);
 
         scanner.close();
-        System.out.println("Your order has been successfully placed");
+
+        System.out.println(ANSI_GREEN + "Your order has been successfully placed" + ANSI_RESET);
+
+        System.out.println("New quantity: " + product.quantity());
         return order;
     }
 }
