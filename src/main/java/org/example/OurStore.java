@@ -8,6 +8,8 @@ public class OurStore {
     public static void main(String[] args) {
         ProductRepo productRepo = new ProductRepo();
         OrderListRepo orderListRepo = new OrderListRepo();
+        Client client1 = new Client("John", "Doe", 1);
+        System.out.println(client1);
         System.out.println();
 
         CSVReader.insertCVS();
@@ -22,4 +24,5 @@ public class OurStore {
             System.out.println("Please try again");
         }
     }
+
 }
